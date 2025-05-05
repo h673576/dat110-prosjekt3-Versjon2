@@ -24,13 +24,16 @@ import no.hvl.dat110.rpc.interfaces.NodeInterface;
 public class Util {
 	 
 	public static String activeIP = null;
-	public static int numReplicas = 4;  
-	
+	public static int numReplicas = 4;
+
 	/**
-	 * This method computes (lower <= id <= upper).
-	 * To use this method to compute (lower < id <= upper), ensure that the calling method increased the lower param by 1.
-	 * To use this method to compute (lower <= id < upper), ensure that the calling method increased the upper param by 1.
-	 * To use this method to compute (lower < id < upper), ensure that the calling method increased both the lower and upper params by 1.
+	 * This method computes (lower <= id <= upper). To use this method to compute
+	 * (lower < id <= upper), ensure that the calling method increased the lower
+	 * param by 1. To use this method to compute (lower <= id < upper), ensure that
+	 * the calling method increased the upper param by 1. To use this method to
+	 * compute (lower < id < upper), ensure that the calling method increased both
+	 * the lower and upper params by 1.
+	 * 
 	 * @param id
 	 * @param lower
 	 * @param upper
@@ -40,15 +43,21 @@ public class Util {
 		// Hint:
 		// using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
 		// The interval (6, 2) using the notation above means; pred = 6 and node = 2
-		// if id = 4, then (6 < 4 <= 2) = false  
+		// if id = 4, then (6 < 4 <= 2) = false
 		// if id = 9, then (6 < 9 <= 2) = true
-		
+
 		// Task: given an identifier, id: check whether pred < id <= node
-		
-		return false;
+		// BigInteger modId = id.mod(Hash.addressSize());
+		if (upper.compareTo(lower) < 0)
+			return id.compareTo(lower) != -1 || id.compareTo(upper) != 1;
+		else
+			return id.compareTo(lower) != -1 && id.compareTo(upper) != 1;
+
+		// id >= lower OR id <= upper
+		// lower <= id <= upper
 
 	}
-	
+
 	public static List<String> toString(List<NodeInterface> list) throws RemoteException {
 		List<String> nodestr = new ArrayList<String>();
 		list.forEach(node -> 
